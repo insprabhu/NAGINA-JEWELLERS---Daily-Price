@@ -1,0 +1,212 @@
+:root {
+    --gold: #FFD700;
+    --silver: #C0C0C0;
+    --primary-color: #333;
+    --secondary-color: #666;
+    --background-light: #f4f4f9;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-light);
+    color: var(--primary-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* --- Header & Branding --- */
+header {
+    background: linear-gradient(135deg, #333 0%, #000 100%);
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3em;
+    margin-bottom: 5px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.shop-address {
+    font-size: 1.1em;
+    color: var(--silver);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#last-updated {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-top: 10px;
+}
+
+/* --- Rate Display Cards Container --- */
+.rates-wrapper {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap; 
+}
+
+.rate-card {
+    flex: 1;
+    min-width: 350px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.rate-card:hover {
+    transform: translateY(-5px);
+}
+
+.gold-card h3 {
+    color: var(--gold);
+    border-bottom: 3px solid var(--gold);
+}
+
+.silver-card h3 {
+    color: var(--secondary-color);
+    border-bottom: 3px solid var(--silver);
+}
+
+/* --- Table Styling --- */
+.rate-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.rate-table th, .rate-table td {
+    padding: 12px 10px;
+    text-align: right; /* सभी मूल्य राइट-अलाइन */
+    border-bottom: 1px solid #eee;
+}
+
+.rate-table th:first-child, .rate-table td:first-child {
+    text-align: left; /* विवरण/शुद्धता लेफ्ट-अलाइन */
+}
+
+.rate-table th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+}
+
+.rate-value {
+    font-weight: bold;
+    font-size: 1.05em;
+    color: #007bff; /* सामान्य मूल्य का रंग */
+}
+
+.tax-value {
+    color: #dc3545; /* GST के लिए लाल */
+    font-size: 0.95em;
+}
+
+.final-row td {
+    border-top: 2px solid #333;
+    font-size: 1.2em;
+    background-color: #e8f5e9;
+}
+
+.final-rate {
+    color: #28a745; /* अंतिम दर के लिए हरा */
+    font-size: 1.3em !important;
+}
+
+/* --- Manual Input Section (एडमिन के लिए) --- */
+.manual-input-section {
+    background-color: #fff3cd; 
+    color: #856404;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #ffeeba;
+}
+
+/* ... (Input और button स्टाइलिंग पिछले कोड से) ... */
+.manual-input-section h3 {
+    border-bottom: 2px dashed #ffeeba;
+    padding-bottom: 10px;
+    color: #856404;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.manual-input-section button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.manual-input-section button:hover {
+    background-color: #218838;
+}
+.note-text {
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    color: #a07a2d;
+}
+
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: var(--silver);
+    margin-top: 30px;
+    font-size: 0.8em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rates-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .rate-card {
+        min-width: 100%;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+}

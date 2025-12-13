@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 Nagina Jewellers - लाइव गोल्ड और सिल्वर रेट</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>✨ NAGINA JEWELLERS ✨</h1>
+            <p class="shop-address">📍 Lahartara, Varanasi</p>
+            <h2>दैनिक गोल्ड और सिल्वर बाज़ार भाव</h2>
+            <p id="last-updated">अंतिम अपडेट: <span id="current-date">--/--/----</span></p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="rates-wrapper">
+            <div class="rate-card silver-card">
+                <h3>🥈 चाँदी का रेट (1 किलोग्राम)</h3>
+                <table class="rate-table">
+                    <thead>
+                        <tr>
+                            <th>विवरण</th>
+                            <th>मूल्य (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MCX/Spot बेस रेट</td>
+                            <td class="rate-value" id="disp-silver-base">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>3% GST राशि</td>
+                            <td class="rate-value tax-value" id="disp-silver-gst">0.00</td>
+                        </tr>
+                        <tr class="final-row">
+                            <td>**अंतिम ग्राहक दर**</td>
+                            <td class="rate-value final-rate" id="disp-silver-final">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="rate-card gold-card">
+                <h3>🥇 सोने का रेट (10 ग्राम)</h3>
+                <table class="rate-table">
+                    <thead>
+                        <tr>
+                            <th>शुद्धता</th>
+                            <th>बेस रेट</th>
+                            <th>+ 3% GST</th>
+                            <th>अंतिम दर (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>24 कैरेट (99.9%)</td>
+                            <td class="base-rate-col" id="base-gold-24k">0.00</td>
+                            <td class="tax-value" id="gst-gold-24k">0.00</td>
+                            <td class="rate-value final-rate" id="final-gold-24k">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>22 कैरेट (91.6%)</td>
+                            <td class="base-rate-col" id="base-gold-22k">0.00</td>
+                            <td class="tax-value" id="gst-gold-22k">0.00</td>
+                            <td class="rate-value final-rate" id="final-gold-22k">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>18 कैरेट (75.0%)</td>
+                            <td class="base-rate-col" id="base-gold-18k">0.00</td>
+                            <td class="tax-value" id="gst-gold-18k">0.00</td>
+                            <td class="rate-value final-rate" id="final-gold-18k">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <section class="manual-input-section">
+            <h3>💰 आज का बेस रेट (मैनुअल एंट्री)</h3>
+            <p class="note-text">**ध्यान दें:** कृपया केवल MCX/स्पॉट बेस रेट ही भरें। GST और कैरेट की गणना ऑटोमेटिक हो जाएगी।</p>
+            <div class="input-group">
+                <label for="silver-base-input">चाँदी (MCX/Spot) 1 Kg बेस रेट:</label>
+                <input type="number" id="silver-base-input" value="75000" placeholder="चाँदी का बेस रेट (₹)">
+            </div>
+            <div class="input-group">
+                <label for="gold-24k-base-input">सोना (24K/999) 10 Gm बेस रेट:</label>
+                <input type="number" id="gold-24k-base-input" value="65000" placeholder="सोने का बेस रेट (₹)">
+            </div>
+            <button onclick="calculateAndDisplayRates()">रेट अपडेट करें</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2025 Nagina Jewellers. सभी दरें संकेत मात्र हैं। अंतिम दरें बाज़ार और मेकिंग चार्जेस पर निर्भर करती हैं।</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
