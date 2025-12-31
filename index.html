@@ -10,7 +10,7 @@
 <body>
 
     <div class="royal-ribbon top-ribbon">
-        <marquee>✨ NAGINA JEWELLERS: शुद्धता और विश्वास का नाम | Lahartara, Varanasi | 100% BIS Hallmarked Jewelry ✨</marquee>
+        <marquee>✨ NAGINA JEWELLERS: शुद्धता और विश्वास का नाम | Lahartara, Varanasi ✨</marquee>
     </div>
 
     <nav class="navbar">
@@ -41,32 +41,18 @@
 
     <main class="container">
         <h2 class="section-title" id="rates">📊 आज का ताजा भाव (Live Rates)</h2>
-        
         <div class="price-container">
             <div class="price-box">
                 <h3 class="box-head">🥇 सोने का रेट (10 Gm)</h3>
                 <table class="rate-table">
-                    <thead>
-                        <tr>
-                            <th>शुद्धता</th>
-                            <th>बेस रेट</th>
-                            <th>GST (3%)</th>
-                            <th>अंतिम दर</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>शुद्धता</th><th>बेस रेट</th><th>GST (3%)</th><th>अंतिम दर</th></tr></thead>
                     <tbody id="gold-list"></tbody>
                 </table>
             </div>
-
             <div class="price-box">
                 <h3 class="box-head">🥈 चाँदी का रेट</h3>
                 <table class="rate-table">
-                    <thead>
-                        <tr>
-                            <th>विवरण</th>
-                            <th>मूल्य (₹)</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>विवरण</th><th>मूल्य (₹)</th></tr></thead>
                     <tbody id="silver-list"></tbody>
                 </table>
             </div>
@@ -78,26 +64,22 @@
             <div class="product-grid" id="silver-gallery" style="margin-top:20px;"></div>
         </section>
 
-        <section id="admin-panel" class="admin-modal" style="display: none;">
+        <div id="admin-panel" class="admin-modal" style="display: none;">
             <div class="admin-content">
                 <h2>🛠 Staff Control</h2>
-                <div class="admin-group">
-                    <input type="number" id="g-base" placeholder="Gold 24K Rate">
-                    <input type="number" id="s-base" placeholder="Silver 1kg Rate">
-                    <button class="btn-main" onclick="saveRates()">Update Price</button>
-                </div>
-                <div class="admin-group">
-                    <input type="text" id="p-link" placeholder="Image URL">
-                    <input type="text" id="p-name" placeholder="Item Name">
-                    <select id="p-cat"><option value="gold">Gold</option><option value="silver">Silver</option></select>
-                    <button class="btn-main" style="background:#b8860b;" onclick="saveProduct()">Add Product</button>
-                </div>
+                <input type="number" id="g-base" placeholder="24K Gold Rate">
+                <input type="number" id="s-base" placeholder="Silver 1kg Rate">
+                <button class="btn-main" onclick="saveRates()">Update Price & Sync</button>
+                <hr>
+                <input type="text" id="p-link" placeholder="Image URL">
+                <input type="text" id="p-name" placeholder="Item Name">
+                <select id="p-cat"><option value="gold">Gold</option><option value="silver">Silver</option></select>
+                <button class="btn-main" style="background:#b8860b;" onclick="saveProduct()">Add Product</button>
                 <div id="admin-item-list" class="admin-list"></div>
                 <button class="btn-close" onclick="toggleAdmin()">Close</button>
             </div>
-        </section>
+        </div>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>

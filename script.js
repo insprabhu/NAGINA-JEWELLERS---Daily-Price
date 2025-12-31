@@ -1,101 +1,133 @@
+// --- CONFIGURATION (APNI DETAILS YHA BHAREIN) ---
+const GITHUB_TOKEN = "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"; 
+const REPO_OWNER = "NAGINA-JEWELLERS"; 
+const REPO_NAME = "NAGINA-JEWELLERS---Daily-Price";
+const FILE_PATH = "data.json"; 
 const MASTER_PASS = "Prabhu@12";
 const WHATSAPP_NUMBER = "8574481775";
 
-// Slider Logic
-let slideIdx = 0;
-function moveSlider() {
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach(s => s.classList.remove('active'));
-    slideIdx = (slideIdx + 1) % slides.length;
-    slides[slideIdx].classList.add('active');
-    setTimeout(moveSlider, 4000);
+// Default data agar internet na ho
+let currentData = {
+    rates: { gBase: 0, sBase: 0 },
+    catalog: []
+};
+
+// 1. GitHub se data load karna
+async function loadOnlineData() {
+    try {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+        const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
+        if (res.ok) {
+            const json = await res.json();
+            currentData = JSON.parse(atob(json.content));
+            renderAll();
+        }
+    } catch (e) { console.log("Data load error"); }
 }
 
-// Admin Logic
-function accessAdmin() {
-    if(prompt("Staff Password:") === MASTER_PASS) toggleAdmin();
+// 2. GitHub par data save karna
+async function syncToGitHub() {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+    let sha = "";
+    try {
+        const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
+        if (res.ok) { const json = await res.json(); sha = json.sha; }
+    } catch (e) {}
+
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: { Authorization: `token ${GITHUB_TOKEN}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: "Update from Admin Panel",
+            content: btoa(JSON.stringify(currentData)),
+            sha: sha
+        })
+    });
+    if (response.ok) alert("Sabhi devices ke liye rate update ho gaye!");
+    else alert("Error: Token check karein.");
 }
+
+// Admin Panel Toggle
+function accessAdmin() { if(prompt("Staff Password:") === MASTER_PASS) toggleAdmin(); }
 function toggleAdmin() {
     const p = document.getElementById('admin-panel');
     p.style.display = (p.style.display === 'none') ? 'flex' : 'none';
 }
 
+// Rates Update Logic
 function saveRates() {
     const g = document.getElementById('g-base').value;
     const s = document.getElementById('s-base').value;
-    localStorage.setItem('nagina_rates', JSON.stringify({gBase: g, sBase: s}));
+    if(!g || !s) return alert("Rates bhariye!");
+    currentData.rates = { gBase: g, sBase: s };
     renderAll();
-    alert("Rates Updated!");
+    syncToGitHub();
 }
 
 function saveProduct() {
     const link = document.getElementById('p-link').value;
     const name = document.getElementById('p-name').value;
     const cat = document.getElementById('p-cat').value;
-    let catalog = JSON.parse(localStorage.getItem('nagina_catalog')) || [];
-    catalog.push({ id: Date.now(), link, name, cat });
-    localStorage.setItem('nagina_catalog', JSON.stringify(catalog));
+    if(!link || !name) return alert("Details bhariye!");
+    currentData.catalog.push({ id: Date.now(), link, name, cat });
     renderAll();
+    syncToGitHub();
 }
 
 function deleteItem(id) {
-    let catalog = JSON.parse(localStorage.getItem('nagina_catalog'));
-    localStorage.setItem('nagina_catalog', JSON.stringify(catalog.filter(i => i.id !== id)));
+    currentData.catalog = currentData.catalog.filter(i => i.id !== id);
     renderAll();
+    syncToGitHub();
 }
 
-// Render Table with Reference Image Style
+// UI Rendering
 function renderAll() {
-    const rates = JSON.parse(localStorage.getItem('nagina_rates')) || {gBase:0, sBase:0};
-    const gb = parseFloat(rates.gBase);
-    const sb = parseFloat(rates.sBase);
+    const gb = parseFloat(currentData.rates.gBase);
+    const sb = parseFloat(currentData.rates.sBase);
 
-    const goldRows = [
-        { lab: "24K (99.9)", price: gb },
-        { lab: "22K (91.6)", price: Math.round(gb * 0.9166) },
-        { lab: "18K (75.0)", price: Math.round(gb * 0.75) },
-        { lab: "14K (58.3)", price: Math.round(gb * 0.583) },
-        { lab: "9K (37.5)", price: Math.round(gb * 0.375) }
+    // Gold Table
+    const purities = [
+        { lab: "24K (99.9)", f: 1 }, { lab: "22K (91.6)", f: 0.9166 },
+        { lab: "18K (75.0)", f: 0.75 }, { lab: "14K (58.3)", f: 0.583 },
+        { lab: "9K (37.5)", f: 0.375 }
     ];
-
-    let gHTML = "";
-    goldRows.forEach(item => {
-        const gst = Math.round(item.price * 0.03);
-        const final = item.price + gst;
-        gHTML += `
-            <tr>
-                <td>${item.lab}</td>
-                <td>${item.price.toLocaleString()}</td>
-                <td><span class="gst-highlight">${gst.toLocaleString()}</span></td>
-                <td class="final-rate">${final.toLocaleString()}</td>
-            </tr>`;
+    let gH = "";
+    purities.forEach(p => {
+        const base = Math.round(gb * p.f);
+        const gst = Math.round(base * 0.03);
+        gH += `<tr><td>${p.lab}</td><td>${base.toLocaleString()}</td><td><span class="gst-highlight">${gst.toLocaleString()}</span></td><td class="final-rate">${(base+gst).toLocaleString()}</td></tr>`;
     });
-    document.getElementById('gold-list').innerHTML = gHTML;
+    document.getElementById('gold-list').innerHTML = gH;
 
     // Silver Table
     const sGst = Math.round(sb * 0.03);
     document.getElementById('silver-list').innerHTML = `
-        <tr><td>बेस रेट (1 Kg)</td><td>${sb.toLocaleString()}</td></tr>
-        <tr><td>GST (3%)</td><td><span class="gst-highlight">${sGst.toLocaleString()}</span></td></tr>
-        <tr style="background:#f1f8e9"><td style="font-weight:bold">अंतिम दर</td><td class="final-rate">${(sb + sGst).toLocaleString()}</td></tr>
-        <tr><td>चाँदी (10 Gm)</td><td>${Math.round((sb+sGst)/100).toLocaleString()}</td></tr>
-    `;
+        <tr><td>बेस रेट (1kg)</td><td>${sb.toLocaleString()}</td></tr>
+        <tr><td>3% GST</td><td><span class="gst-highlight">${sGst.toLocaleString()}</span></td></tr>
+        <tr style="background:#f1f8e9"><td style="font-weight:bold">अंतिम दर</td><td class="final-rate">${(sb+sGst).toLocaleString()}</td></tr>
+        <tr><td>चाँदी (10g)</td><td>${Math.round((sb+sGst)/100).toLocaleString()}</td></tr>`;
 
-    // Catalog & Admin
-    const gGal = document.getElementById('gold-gallery');
-    const sGal = document.getElementById('silver-gallery');
-    const admL = document.getElementById('admin-item-list');
-    gGal.innerHTML = ""; sGal.innerHTML = ""; admL.innerHTML = "";
+    // Catalog
+    const gG = document.getElementById('gold-gallery');
+    const sG = document.getElementById('silver-gallery');
+    const adL = document.getElementById('admin-item-list');
+    gG.innerHTML = ""; sG.innerHTML = ""; adL.innerHTML = "";
 
-    const catalog = JSON.parse(localStorage.getItem('nagina_catalog')) || [];
-    catalog.forEach(item => {
+    currentData.catalog.forEach(item => {
         const card = `<div class="product-item"><img src="${item.link}"><div style="padding:8px;"><strong>${item.name}</strong><a href="https://wa.me/${WHATSAPP_NUMBER}?text=Details: ${item.name}" class="wa-link">Enquire</a></div></div>`;
-        if(item.cat === 'gold') gGal.innerHTML += card; else sGal.innerHTML += card;
-        admL.innerHTML += `<div style="display:flex;justify-content:space-between;padding:5px;border-bottom:1px solid #eee;"><span>${item.name}</span><button onclick="deleteItem(${item.id})" style="color:red;border:none;background:none;cursor:pointer;">✖</button></div>`;
+        if(item.cat === 'gold') gG.innerHTML += card; else sG.innerHTML += card;
+        adL.innerHTML += `<div style="display:flex;justify-content:space-between;padding:5px;border-bottom:1px solid #eee;"><span>${item.name}</span><button onclick="deleteItem(${item.id})" style="color:red;border:none;background:none;cursor:pointer;">✖</button></div>`;
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    moveSlider();
-    renderAll();
-});
+// Carousel
+let sIdx = 0;
+function moveSlider() {
+    const s = document.querySelectorAll('.slide');
+    s.forEach(x => x.classList.remove('active'));
+    sIdx = (sIdx + 1) % s.length;
+    s[sIdx].classList.add('active');
+    setTimeout(moveSlider, 4000);
+}
+
+window.onload = () => { loadOnlineData(); moveSlider(); };
