@@ -1,35 +1,47 @@
-:root { --gold: #FFD700; --success: #28a745; }
-body { font-family: 'Roboto', sans-serif; background: #f8f9fa; margin: 0; }
+:root { --gold: #D4AF37; --dark: #121212; --green: #2e7d32; }
+body { font-family: 'Roboto', sans-serif; margin: 0; background: #f4f4f4; color: #333; }
 
-/* Royal Ribbon Styling */
-.royal-ribbon {
-    background: linear-gradient(90deg, #8a6d3b, #d4af37, #8a6d3b);
-    color: #fff; padding: 10px 0; font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-bottom: 2px solid #fff;
-}
-marquee { font-size: 1.1em; letter-spacing: 1px; }
+.royal-ribbon { background: linear-gradient(90deg, #8a6d3b, #d4af37, #8a6d3b); color: white; padding: 10px; text-align: center; font-weight: bold; }
+.navbar { display: flex; justify-content: space-between; align-items: center; background: var(--dark); padding: 10px 5%; position: sticky; top: 0; z-index: 1000; }
+.nav-logo { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: bold; }
+.dropbtn { background: var(--gold); border: none; padding: 8px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; }
+.dropdown-content { display: none; position: absolute; right: 0; background: #1a1a1a; min-width: 160px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.dropdown-content a { color: white; padding: 12px; text-decoration: none; display: block; border-bottom: 1px solid #333; }
+.nav-dropdown:hover .dropdown-content { display: block; }
 
-header { background: #000; color: white; text-align: center; padding: 30px 20px; }
-header h1 { font-family: 'Playfair Display', serif; color: var(--gold); margin: 0; font-size: 2.5em; }
+/* Carousel Height Reduced to 400px */
+.hero-carousel { position: relative; height: 400px; overflow: hidden; background: #000; }
+.slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; }
+.slide.active { opacity: 1; }
+.slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); }
 
-.hallmark-badge-container { display: flex; justify-content: center; margin: 20px; }
-.hallmark-card { 
-    background: white; border-radius: 12px; padding: 15px; 
-    display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; 
-}
-.hallmark-card img { width: 45px; }
+/* Full Image Slide Correction */
+.full-view-slide { background: #000; display: flex; align-items: center; justify-content: center; }
+.blur-bg { position: absolute; width: 100%; height: 100%; background-size: cover; filter: blur(15px) brightness(0.3); }
+.main-img { position: relative; z-index: 2; width: auto !important; height: 100% !important; object-fit: contain !important; filter: none !important; }
 
-.rates-wrapper { display: flex; gap: 20px; flex-wrap: wrap; padding: 0 20px; max-width: 1200px; margin: auto; }
-.rate-card { background: white; flex: 1; min-width: 320px; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.rate-table { width: 100%; border-collapse: collapse; }
-.rate-table td, .rate-table th { padding: 12px; border-bottom: 1px solid #eee; text-align: center; }
-.final-rate { color: var(--success); font-weight: bold; font-size: 1.2em; }
-.final-row { background: #f0fff0; font-weight: bold; }
+/* Table Styling as per Image */
+.price-container { display: flex; flex-wrap: wrap; gap: 20px; padding: 0 5%; justify-content: center; }
+.price-box { flex: 1; min-width: 320px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; }
+.box-head { background: #fff; color: #333; margin: 0; padding: 15px; border-bottom: 2px solid var(--gold); text-align: left; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
 
-.manual-input-section { background: #fff3cd; margin: 20px; padding: 20px; border-radius: 12px; }
-.update-btn { background: var(--success); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; }
-.logout-btn { background: #666; color: white; border: none; margin-top: 10px; width: 100%; padding: 8px; border-radius: 6px; }
-.login-trigger { text-align: center; padding: 20px; }
-.login-trigger button { background: none; border: none; color: #ccc; cursor: pointer; }
+.rate-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.rate-table th { background: #fafafa; padding: 12px; border-bottom: 1px solid #eee; text-align: left; color: #666; }
+.rate-table td { padding: 12px; border-bottom: 1px solid #eee; }
 
-@media (max-width: 768px) { .rates-wrapper { flex-direction: column; } }
+/* Highlight & Green Color */
+.gst-highlight { background-color: #fff9c4; font-weight: bold; color: #555; padding: 2px 5px; border-radius: 3px; }
+.final-rate { color: var(--green); font-weight: bold; font-size: 1rem; }
+
+/* Catalog & Admin */
+.section-title { text-align: center; margin: 30px 0; font-family: 'Playfair Display', serif; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; padding: 0 5%; }
+.product-item { background: white; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+.product-item img { width: 100%; height: 200px; object-fit: cover; }
+.wa-link { display: block; background: #111; color: white; text-decoration: none; padding: 10px; text-align: center; font-size: 0.8rem; font-weight: bold; }
+
+.admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; }
+.admin-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; }
+.btn-main { width: 100%; padding: 10px; background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 5px; }
+.btn-close { width: 100%; padding: 10px; background: #666; color: white; border: none; margin-top: 8px; cursor: pointer; }
+input, select { width: 100%; padding: 8px; margin: 5px 0 10px; border: 1px solid #ccc; box-sizing: border-box; }

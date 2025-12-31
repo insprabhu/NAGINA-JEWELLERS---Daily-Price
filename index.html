@@ -3,79 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💎 Nagina Jewellers - Live Rates</title>
+    <title>💎 Nagina Jewellers - Varanasi</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="royal-ribbon">
-        <marquee>✨ धमाका ऑफर: मेकिंग चार्ज मात्र 5.5% से शुरू ✨ 100% BIS हॉलमार्क ज्वेलरी ✨ Nagina Jewellers ✨</marquee>
+
+    <div class="royal-ribbon top-ribbon">
+        <marquee>✨ NAGINA JEWELLERS: शुद्धता और विश्वास का नाम | Lahartara, Varanasi | 100% BIS Hallmarked Jewelry ✨</marquee>
     </div>
 
-    <header>
-        <div class="header-content">
-            <h1>✨ NAGINA JEWELLERS ✨</h1>
-            <p class="shop-address">📍 Lahartara, Varanasi</p>
-            <h2>दैनिक गोल्ड और सिल्वर बाज़ार भाव</h2>
-            <p id="last-updated">अंतिम अपडेट: <span id="current-date">--/--/----</span></p>
+    <nav class="navbar">
+        <div class="nav-logo">NAGINA JEWELLERS</div>
+        <div class="nav-dropdown">
+            <button class="dropbtn">Menu ☰</button>
+            <div class="dropdown-content">
+                <a href="#home">Home</a>
+                <a href="#rates">Live Rates</a>
+                <a href="#catalog">Catalog</a>
+                <a href="#" onclick="accessAdmin()">🔒 Staff Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-carousel" id="home">
+        <div class="slide fade active">
+            <img src="https://images.pexels.com/photos/265856/pexels-photo-265856.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Rings">
+        </div>
+        <div class="slide fade">
+            <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=1600" alt="Necklace">
+        </div>
+        <div class="slide fade full-view-slide">
+            <div class="blur-bg" style="background-image: url('https://images.pexels.com/photos/1446161/pexels-photo-1446161.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+            <img src="https://images.pexels.com/photos/1446161/pexels-photo-1446161.jpeg?auto=compress&cs=tinysrgb&w=1600" class="main-img" alt="Bridal">
         </div>
     </header>
 
-    <div class="royal-ribbon">
-        <marquee>🔥 लिमिटेड ऑफर: बनवाई (Making Charge) पर भारी छूट - केवल 5.5% से शुरू 🔥</marquee>
-    </div>
-
     <main class="container">
-        <div class="hallmark-badge-container">
-            <div class="hallmark-card">
-                <img src="https://img.icons8.com/color/96/guarantee--v1.png" alt="Hallmark">
-                <p>हमारी सभी ज्वेलरी Government Approved (BIS) हॉलमार्क प्रमाणित है।</p>
-            </div>
-        </div>
-
-        <div class="rates-wrapper">
-            <div class="rate-card silver-card">
-                <h3>🥈 चाँदी का रेट (1 Kg)</h3>
-                <table class="rate-table">
-                    <thead><tr><th>विवरण</th><th>मूल्य (₹)</th></tr></thead>
-                    <tbody>
-                        <tr><td>बेस रेट</td><td id="disp-silver-base">0.00</td></tr>
-                        <tr><td>3% GST</td><td class="tax-value" id="disp-silver-gst">0.00</td></tr>
-                        <tr class="final-row"><td>अंतिम दर</td><td class="final-rate" id="disp-silver-final">0.00</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="rate-card gold-card">
-                <h3>🥇 सोने का रेट (10 Gm)</h3>
-                <table class="rate-table">
-                    <thead><tr><th>शुद्धता</th><th>बेस रेट</th><th>GST (3%)</th><th>अंतिम दर</th></tr></thead>
-                    <tbody>
-                        <tr><td>24K (99.9)</td><td id="base-gold-24k">0</td><td id="gst-gold-24k">0</td><td class="final-rate" id="final-gold-24k">0</td></tr>
-                        <tr><td>22K (91.6)</td><td id="base-gold-22k">0</td><td id="gst-gold-22k">0</td><td class="final-rate" id="final-gold-22k">0</td></tr>
-                        <tr><td>18K (75.0)</td><td id="base-gold-18k">0</td><td id="gst-gold-18k">0</td><td class="final-rate" id="final-gold-18k">0</td></tr>
-                        <tr><td>14K (58.3)</td><td id="base-gold-14k">0</td><td id="gst-gold-14k">0</td><td class="final-rate" id="final-gold-14k">0</td></tr>
-                        <tr><td>9K (37.5)</td><td id="base-gold-9k">0</td><td id="gst-gold-9k">0</td><td class="final-rate" id="final-gold-9k">0</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <h2 class="section-title" id="rates">📊 आज का ताजा भाव (Live Rates)</h2>
         
-        <section id="admin-panel" class="manual-input-section" style="display: none;">
-            <h3>💰 एडमिन पैनल</h3>
-            <div class="input-group"><label>Silver Base:</label><input type="number" id="silver-base-input" value="75000"></div>
-            <div class="input-group"><label>Gold 24K Base:</label><input type="number" id="gold-24k-base-input" value="65000"></div>
-            <button class="update-btn" onclick="calculateAndDisplayRates()">रेट अपडेट करें</button>
-            <button class="logout-btn" onclick="logoutAdmin()">पैनल छुपाएं</button>
+        <div class="price-container">
+            <div class="price-box">
+                <h3 class="box-head">🥇 सोने का रेट (10 Gm)</h3>
+                <table class="rate-table">
+                    <thead>
+                        <tr>
+                            <th>शुद्धता</th>
+                            <th>बेस रेट</th>
+                            <th>GST (3%)</th>
+                            <th>अंतिम दर</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gold-list"></tbody>
+                </table>
+            </div>
+
+            <div class="price-box">
+                <h3 class="box-head">🥈 चाँदी का रेट</h3>
+                <table class="rate-table">
+                    <thead>
+                        <tr>
+                            <th>विवरण</th>
+                            <th>मूल्य (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="silver-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <section id="catalog">
+            <h2 class="section-title">💍 Our Catalog</h2>
+            <div class="product-grid" id="gold-gallery"></div>
+            <div class="product-grid" id="silver-gallery" style="margin-top:20px;"></div>
         </section>
 
-        <div class="royal-ribbon" style="margin-top: 20px; border-radius: 8px;">
-            <marquee>💎 शुद्धता और विश्वास का नाम - नगीना ज्वेलर्स - मेकिंग चार्ज @ 5.5% 💎</marquee>
-        </div>
-
-        <div class="login-trigger">
-            <button onclick="checkAdmin()">🔒 Admin Login</button>
-        </div>
+        <section id="admin-panel" class="admin-modal" style="display: none;">
+            <div class="admin-content">
+                <h2>🛠 Staff Control</h2>
+                <div class="admin-group">
+                    <input type="number" id="g-base" placeholder="Gold 24K Rate">
+                    <input type="number" id="s-base" placeholder="Silver 1kg Rate">
+                    <button class="btn-main" onclick="saveRates()">Update Price</button>
+                </div>
+                <div class="admin-group">
+                    <input type="text" id="p-link" placeholder="Image URL">
+                    <input type="text" id="p-name" placeholder="Item Name">
+                    <select id="p-cat"><option value="gold">Gold</option><option value="silver">Silver</option></select>
+                    <button class="btn-main" style="background:#b8860b;" onclick="saveProduct()">Add Product</button>
+                </div>
+                <div id="admin-item-list" class="admin-list"></div>
+                <button class="btn-close" onclick="toggleAdmin()">Close</button>
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>
