@@ -1,5 +1,5 @@
 const GITHUB_TOKEN = "GITHUB_TOKEN_PLACEHOLDER"; 
-const REPO_OWNER = "insprabhu"; 
+const REPO_OWNER = "insprabhu";
 const REPO_NAME = "NAGINA-JEWELLERS---Daily-Price";
 const FILE_PATH = "data.json"; 
 const MASTER_PASS = "Prabhu@12";
