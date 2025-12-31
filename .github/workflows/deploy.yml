@@ -1,11 +1,9 @@
 name: My First Pipeline
 
-# Ye kab chalega? Jab bhi aap 'main' branch mein push karoge
 on:
   push:
     branches: ["main"]
 
-# Permission deni padegi taaki GitHub Actions aapki site ko change kar sake
 permissions:
   contents: read
   pages: write
@@ -19,24 +17,29 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Backup banana (Artifact)
-      # Isse aapki files safe rahengi
+      # 2. TOKEN INJECTION (यही स्टेप नया है)
+      # यह script.js में जाकर 'GITHUB_TOKEN_PLACEHOLDER' को आपके असली Secret से बदल देगा
+      - name: Inject Secret Token
+        run: |
+          sed -i "s/GITHUB_TOKEN_PLACEHOLDER/${{ secrets.MY_PERSONAL_TOKEN }}/g" script.js
+
+      # 3. Backup banana (Artifact)
       - name: Save Backup Artifact
         uses: actions/upload-artifact@v4
         with:
           name: site-backup
           path: .
 
-      # 3. GitHub Pages ko configure karna
+      # 4. GitHub Pages ko configure karna
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # 4. Files ko upload ke liye bundle karna
+      # 5. Files ko upload ke liye bundle karna
       - name: Upload Files
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
-      # 5. Live deploy karna
+      # 6. Live deploy karna
       - name: Deploy Now
         uses: actions/deploy-pages@v4
